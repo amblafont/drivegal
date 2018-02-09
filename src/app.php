@@ -87,7 +87,7 @@ $app->register(new SimpleUser\UserServiceProvider());
 
 $app->register(new CacheServiceProvider, array(
     'cache.options' => array("default" => array(
-        "driver" => "apc"
+        "driver" => "apcu"
     ))
 ));
 
