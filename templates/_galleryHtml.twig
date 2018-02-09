@@ -16,7 +16,8 @@
 
 <div id="thumbnails">
     {% for file in files %}
-        {% set caption = file.caption|replace("\\n", " ") %}
+        {# {% set caption = file.caption|replace("\\n", " ") %} #}
+        {% set caption = file.caption %}
         <div class="thumbnail {{ file.type }}">
             <a
                     {% if file.type == "movie" %}
