@@ -248,7 +248,7 @@ $app->get('/{gallery_slug}/album/{album_path}/', function(Application $app, Gall
 // Middleware: Determine the current user.
 //
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
-    $token = $app['security']->getToken();
+    $token = $app['security.token_storage']->getToken();
     // echo '<pre>' . print_r($token, true);
     $app['user'] = null;
 

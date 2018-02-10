@@ -88,7 +88,7 @@
 {% endblock %}
 
 {% block footer %}
-    <script src="/js/lib/share.min.js"></script>
+    <script src="{{ asset ('js/lib/share.min.js') }}"></script>
     <script type="text/javascript">
         $(function() {
             new Share('#share-button', {

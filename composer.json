@@ -1,7 +1,7 @@
 {
     "require": {
         "php": ">=5.3.3",
-        "silex/silex": ">=1.0",
+        "silex/silex": ">=2.0",
         "silex/web-profiler": ">=1.0",
         "symfony/browser-kit": ">=2.3",
         "symfony/class-loader": ">=2.3",
@@ -19,11 +19,12 @@
         "symfony/validator": ">=2.3",
         "google/apiclient": "1.0.*@beta",
         "cocur/slugify": ">=1.0",
-        "gigablah/silex-oauth": ">=0.1",
+        "gigablah/silex-oauth": "~2.0@dev",
         "doctrine/dbal": ">=2.4",
-        "jasongrimes/silex-simpleuser": ">=1.0",
         "chh/cache-service-provider": ">=1.0",
-        "jasongrimes/paginator": " >=0.1"
+        "jasongrimes/paginator": " >=0.1",
+        "symfony/asset": "^3.4",
+        "davec49/silex2-simpleuser": "^2.2"
     },
     "autoload": {
         "psr-0": { "Drivegal": "src/"}

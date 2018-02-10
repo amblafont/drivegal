@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
 
-    <link rel="stylesheet" href="/css/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset ('css/lib/bootstrap/css/bootstrap.min.css') }}">
 
     <title>Photo Gallery for Google Drive</title>
 
@@ -184,7 +184,7 @@
 
         <div
                 class="parallax-image parallax-image-75"
-                style="background-image:url(/img/gallery.jpg)"
+                style="background-image:url({{ asset ('img/gallery.jpg') }})"
                 data-anchor-target="#gallery + .gap"
                 data-bottom-top="transform: translate3d(0px, -80%, 0px);"
                 data-top-bottom="transform: translate3d(0px, 80%, 0px);"
@@ -200,7 +200,7 @@
 
         <div
                 class="parallax-image parallax-image-50"
-                style="background-image:url(/img/photowall.jpg)"
+                style="background-image:url({{ asset ('img/photowall.jpg') }})"
                 data-anchor-target="#photowall + .gap"
                 data-bottom-top="transform: translate3d(0px, -60%, 0px);"
                 data-top-bottom="transform: translate3d(0px, 60%, 0px);"
@@ -215,7 +215,7 @@
 
         <div
                 class="parallax-image parallax-image-100"
-                style="background-image:url(/img/library.jpg)"
+                style="background-image:url({{ asset ('img/library.jpg') }})"
                 data-anchor-target="#library + .gap"
                 data-bottom-top="transform: translate3d(0px, -80%, 0px);"
                 data-top-bottom="transform: translate3d(0px, 80%, 0px);"
@@ -230,7 +230,7 @@
 
         <div
                 class="parallax-image parallax-image-100"
-                style="background-image:url(/img/antiquecamera.jpg)"
+                style="background-image:url({{ asset ('img/antiquecamera.jpg') }})"
                 data-anchor-target="#antiquecamera + .gap"
                 data-bottom-top="transform: translate3d(0px, -80%, 0px);"
                 data-top-bottom="transform: translate3d(0px, 80%, 0px);"
@@ -241,7 +241,7 @@
         <div id="gallery">
             {#% include '_navbar.twig' %#}
         </div>
-        <div class="gap gap-75" style="background-image:url(/img/gallery.jpg);">
+        <div class="gap gap-75" style="background-image:url({{ asset ('img/gallery.jpg') }});">
             <div style="text-align: left; padding: 10px;">
                 {% if app.user %}
                     <a href="{{ path('my-gallery') }}" class="btn btn-transparent">View your gallery</a>
@@ -254,7 +254,7 @@
         <div class="content content-full" id="photowall">
             <div style="text-align: center;">
                 <div style="display: inline-block; text-align: left;">
-                    <img src="/img/drivegal-logo-128.png" width="60" height="60" style="float: left;">
+                    <img src="{{ asset ('img/drivegal-logo-128.png') }}" width="60" height="60" style="float: left;">
                     <div style="float: left; padding: 5px 10px; line-height: 1.1;">
                         <div style="font-size: 30px; font-weight: bold;">
                             Photo Gallery
@@ -299,7 +299,7 @@
             </div>
 
         </div>
-        <div class="gap gap-50" style="background-image:url(/img/photowall.jpg);"></div>
+        <div class="gap gap-50" style="background-image:url({{ asset ('img/photowall.jpg') }});"></div>
 
 
         <div class="content content-full" id="library">
@@ -347,7 +347,7 @@
             </div>
 
         </div>
-        <div class="gap gap-50" style="background-image:url(/img/library.jpg);"></div>
+        <div class="gap gap-50" style="background-image:url({{ asset ('img/library.jpg') }});"></div>
 
 
         <div class="content content-full" id="antiquecamera">
@@ -382,7 +382,7 @@
             </div>
         </div>
 
-        <div class="gap gap-100" style="background-image:url(/img/antiquecamera.jpg);"></div>
+        <div class="gap gap-100" style="background-image:url({{ asset ('img/antiquecamera.jpg') }});"></div>
 
         <div class="content">
             <div class="container">
@@ -406,9 +406,9 @@
 
     </div>
 
-    <script src="/js/lib/jquery/jquery-1.11.1.min.js"></script>
-    <script src="/css/lib/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/js/lib/skrollr.js"></script>
+    <script src="{{ asset ('js/lib/jquery/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ asset ('css/lib/bootstrap/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset ('js/lib/skrollr.js') }}"></script>
     <script type="text/javascript">
         skrollr.init({
             smoothScrolling: false,

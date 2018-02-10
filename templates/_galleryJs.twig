@@ -1,13 +1,13 @@
-<script src="/js/lib/blueimp-gallery/js/blueimp-gallery.min.js"></script>
-<script src="/js/blueimp-gallery-iframevid.js"></script>
-<script src="/js/lib/moment/moment.js"></script>
+<script src="{{ asset ('js/lib/blueimp-gallery/js/blueimp-gallery.min.js') }}"></script>
+<script src="{{ asset ('js/blueimp-gallery-iframevid.js') }}"></script>
+<script src="{{ asset ('js/lib/moment/moment.js') }}"></script>
 
 <script>
     var loading = function() {
         // $('#overlay').show();
         $('#loader').show();
         /*
-        var over = '<div id="overlay"><img id="loading" src="/js/lib/blueimp-gallery/img/loading.gif"></div>';
+        var over = '<div id="overlay"><img id="loading" src="{{ asset ('js/lib/blueimp-gallery/img/loading.gif') }}"></div>';
         $(over).appendTo('body');
         */
     };

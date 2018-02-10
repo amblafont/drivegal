@@ -1,8 +1,9 @@
 <?php
 
-use Cocur\Slugify\Bridge\Silex\SlugifyServiceProvider;
+use Cocur\Slugify\Bridge\Silex2\SlugifyServiceProvider;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\AssetServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
@@ -16,11 +17,14 @@ use CHH\Silex\CacheServiceProvider;
 use Kilte\Silex\Pagination\PaginationServiceProvider;
 
 $app = new Application();
-$app->register(new UrlGeneratorServiceProvider());
+//$app->register(new UrlGeneratorServiceProvider());
 $app->register(new ValidatorServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
+
 $app->register(new TwigServiceProvider());
-$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+$app['twig'] = //$app->share
+(
+   $app->extend('twig', function($twig, $app) {
     // add custom globals, filters, tags, ...
 
     return $twig;
@@ -29,7 +33,8 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
 $app->register(new SlugifyServiceProvider());
 $app->register(new SessionServiceProvider());
 
-$app['authenticator'] = $app->share(function($app) {
+$app['authenticator'] = // $app->share
+(function($app) {
     return new Authenticator(
         $app['gallery.info.mapper'],
         $app['drivegal.client_id'],
@@ -37,15 +42,21 @@ $app['authenticator'] = $app->share(function($app) {
         $app['drivegal.redirect_uri'],
         $app['drivegal.scopes'],
         $app['oauth_user_provider'],
-        $app['security']
+        $app['security.token_storage']
     );
 });
-$app['oauth_user_provider'] = $app->share(function($app) { return new OAuthSimpleUserProvider($app['user.manager']); });
+$app['oauth_user_provider'] =// $app->share
+ (function($app) { return new OAuthSimpleUserProvider($app['user.manager']); });
 
-$app['gallery.info.mapper'] = $app->share(function($app) {
+$app->register(new Silex\Provider\AssetServiceProvider());
+$app->register(new Silex\Provider\HttpFragmentServiceProvider());
+
+$app['gallery.info.mapper'] =// $app->share
+(function($app) {
     return new GalleryInfoMapper($app['db'], $app['slugify']);
 });
-$app['gallery'] = $app->share(function($app) {
+$app['gallery'] =// $app->share
+(function($app) {
    return new GalleryService($app['authenticator'], $app['gallery.info.mapper'], $app['slugify'], $app['cache']);
 });
 
@@ -75,16 +86,17 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
                 'target' => '/login', // @todo This doesn't seem to be working...
             ),
             // 'users' => new Gigablah\Silex\OAuth\Security\User\Provider\OAuthInMemoryUserProvider(),
-            'users' => $app->share(function($app) { return $app['oauth_user_provider']; }),
+            'users' =>// $app->share
+            (function($app) { return $app['oauth_user_provider']; }),
         )
     ),
     'security.access_rules' => array(
         array('^/auth', 'ROLE_USER')
     )
 ));
+
 $app->register(new \Silex\Provider\RememberMeServiceProvider());
 $app->register(new SimpleUser\UserServiceProvider());
-
 $app->register(new CacheServiceProvider, array(
     'cache.options' => array("default" => array(
         "driver" => "apcu"

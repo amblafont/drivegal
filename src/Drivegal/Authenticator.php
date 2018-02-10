@@ -9,7 +9,7 @@ use Google_Auth_Exception;
 use Google_Service_Oauth2;
 use Google_Service_Oauth2_Userinfoplus;
 use SimpleUser\User;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Gigablah\Silex\OAuth\Security\Authentication\Token\OAuthToken;
 use Drivegal\OAuthSimpleUserProvider;
 
@@ -22,7 +22,7 @@ class Authenticator
     protected $redirect_uri;
     protected $scopes;
     protected $userProvider;
-    protected $securityContext;
+    protected $tokenStorage;
 
     /**
      * @param GalleryInfoMapper $galleryInfoMapper
@@ -31,7 +31,7 @@ class Authenticator
      * @param $redirect_uri
      * @param array $scopes
      * @param OAuthSimpleUserProvider $userProvider
-     * @param SecurityContext $securityContext
+     * @param TokenStorage $tokenStorage
      */
     public function __construct(
         GalleryInfoMapper $galleryInfoMapper,
@@ -40,7 +40,7 @@ class Authenticator
         $redirect_uri,
         array $scopes,
         OAuthSimpleUserProvider $userProvider,
-        SecurityContext $securityContext)
+        TokenStorage $tokenStorage)
     {
         $this->galleryInfoMapper = $galleryInfoMapper;
         $this->client_id = $client_id;
@@ -48,7 +48,7 @@ class Authenticator
         $this->redirect_uri = $redirect_uri;
         $this->scopes = $scopes;
         $this->userProvider = $userProvider;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -178,6 +178,6 @@ class Authenticator
         $authenticatedToken->setAuthenticated(true);
         $authenticatedToken->setUser($user);
 
-        $this->securityContext->setToken($authenticatedToken);
+        $this->tokenStorage->setToken($authenticatedToken);
     }
 }

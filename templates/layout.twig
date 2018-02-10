@@ -17,9 +17,8 @@
         <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
 
-        {#<link rel="stylesheet" href="/css/lib/bootstrap.readable/bootstrap.min.css">#}
-        <link rel="stylesheet" href="/css/lib/bootstrap/css/bootstrap.min.css">
-        <link href="{{ app.request.basepath }}/css/main.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset ('css/lib/bootstrap/css/bootstrap.min.css') }}">
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
 
         <!--[if !IE 7]>
         <style type="text/css">
@@ -54,7 +53,7 @@
 
         <div id="footer">
             <div class="text-muted">
-                <img src="/img/drive_white-small.png" width="135" style="margin-right: 20px; float: left;">
+                <img src="{{ asset ('img/drive_white-small.png') }}" width="135" style="margin-right: 20px; float: left;">
                 <div style="margin-top: 17px; display: inline-block; float: right;">
                     &copy; 2014 Jason Grimes.
                     Gallery contents are copyright their respective owners.
@@ -62,8 +61,8 @@
             </div>
         </div>
 
-        <script src="/js/lib/jquery/jquery-1.11.1.min.js"></script>
-        <script src="/css/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="{{ asset ('js/lib/jquery/jquery-1.11.1.min.js') }}"></script>
+        <script src="{{ asset ('css/lib/bootstrap/js/bootstrap.js') }}"></script>
         <script type="text/javascript">
             $(function() {
                 // When opening the collapsed navbar (on mobile), automatically expand the dropdowns inside it.
@@ -89,7 +88,7 @@
         <noscript><p><img src="http://piwik.grimesit.com/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
         <!-- End Piwik Code -->
 
-        <script src="/js/paginator.js"></script>
+        <script src="{{ asset ('js/paginator.js') }}"></script>
 
         {% block footer '' %}
     </body>
