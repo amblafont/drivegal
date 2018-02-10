@@ -23,6 +23,13 @@ $app['oauth.services'] = array(
     ),
 );
 
+// Credential for your specific Google Drive account
+$app['drivegal.googleUserId'] = '';
+$app['drivegal.googleCredentials'] = '';
+// default gallery
+$app['drivegal.mainSlug'] = '';
+$app['drivegal.mainGalleryName'] = '';
+
 $app['db.options'] = array(
     'driver'   => 'pdo_mysql',
     'dbname' => '',

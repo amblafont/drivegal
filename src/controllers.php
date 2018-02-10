@@ -303,10 +303,7 @@ $app->get('/my-gallery', function(Application $app) {
 })
 ->bind('my-gallery');
 
-//
-// Controller: View a gallery's photo stream
-//
-$app->get('/{gallery_slug}/{pagestr}', function(Application $app, Request $request, GalleryInfo $galleryInfo, $pagestr) {
+function renderGalleryPage(Application $app, Request $request, GalleryInfo $galleryInfo, $pagestr) {
     $pg = substr($pagestr, 4); // Strip out the leading "page" string.
     $photoStream = $app['gallery']->getPhotoStream($galleryInfo); /** @var \Drivegal\PhotoStream $photoStream */
     $photoStream->setPerPage(60);
@@ -325,11 +322,27 @@ $app->get('/{gallery_slug}/{pagestr}', function(Application $app, Request $reque
         'paginator' => $paginator,
         'showLightboxPhoto' => $request->query->get('show'),
     ));
+}
+
+
+$app->get('/maingallery/{pagestr}', function(Application $app, Request $request, $pagestr) {
+        $galleryInfo = new GalleryInfo($app['drivegal.googleUserId'], 'maingallery', $app['drivegal.mainGalleryName']);
+
+        $galleryInfo->setCredentials($app['drivegal.googleCredentials']);
+        $galleryInfo->setIsActive(true);
+        return renderGalleryPage($app, $request, $galleryInfo, $pagestr);
 })
-->assert('gallery_slug', '^[^_][^/]+') // slug can't start with an underscore or contain a slash.
-->assert('pagestr', '^page\d+')
-->convert('galleryInfo', $galleryProvider)
-->value('pagestr', 'page1')
-->bind('gallery')
-;
+    ->assert('pagestr', '^page\d+')
+    ->value('pagestr', 'page1')
+    ->bind('defaultgallery');
+
+//
+// Controller: View a gallery's photo stream
+//
+$app->get('/{gallery_slug}/{pagestr}', 'renderGalleryPage')
+    ->assert('gallery_slug', '^[^_][^/]+') // slug can't start with an underscore or contain a slash.
+    ->assert('pagestr', '^page\d+')
+    ->convert('galleryInfo', $galleryProvider)
+    ->value('pagestr', 'page1')
+    ->bind('gallery');
 
