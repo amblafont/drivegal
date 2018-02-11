@@ -16,8 +16,8 @@
     <h1 style="float: left; margin-right: 20px;">{{ galleryName }}</h1>
 
     <ul class="nav nav-pills" style="float: left; margin-bottom: 10px;">
-        <li class="active"><a href="{{ url('gallery', { gallery_slug: gallerySlug }) }}">Photo Stream</a></li>
-        <li><a href="{{ url('album-list', { gallery_slug: gallerySlug }) }}">Albums</a></li>
+        <li class="active"><a href="{{ url('defaultgallery' ) }}">Photo Stream</a></li>
+        <li><a href="{{ url('default-album-list', { gallery_slug: gallerySlug }) }}">Albums</a></li>
     </ul>
 
     <div style="float: right; padding-top: 5px;">
