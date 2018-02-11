@@ -35,6 +35,14 @@ $galleryProvider = function($galleryInfo, Request $request) use ($app) {
     return $galleryInfo;
 };
 
+function getDefaultGallery(Application $app) {
+        $galleryInfo = new GalleryInfo($app['drivegal.googleUserId'], 'maingallery', $app['drivegal.mainGalleryName']);
+
+        $galleryInfo->setCredentials($app['drivegal.googleCredentials']);
+        $galleryInfo->setIsActive(true);
+        return $galleryInfo;
+}
+
 //
 // Error handlers
 //
@@ -189,10 +197,7 @@ $app->match('/settings', function(Application $app, Request $request) {
 ->bind('settings')
 ;
 
-//
-// Controller: View the top-level album list.
-//
-$app->get('/{gallery_slug}/album/', function(Application $app, GalleryInfo $galleryInfo) {
+function renderTopLevelAlbum (Application $app, GalleryInfo $galleryInfo) {
     $albumContents = $app['gallery']->getAlbumContents($galleryInfo, '');
     return $app['twig']->render('album.twig', array(
         'galleryName' => $galleryInfo->getGalleryName(),
@@ -207,7 +212,17 @@ $app->get('/{gallery_slug}/album/', function(Application $app, GalleryInfo $gall
         'showLightboxPhoto' => '',
         'gallerySlug' => $galleryInfo->getSlug(),
     ));
+}
+
+$app->get('/maingallery/album/', function(Application $app) {
+  return renderTopLevelAlbum($app, getDefaultGallery($app));
 })
+->bind('default-album-list')
+;
+//
+// Controller: View the top-level album list.
+//
+$app->get('/{gallery_slug}/album/', 'renderTopLevelAlbum' )
 ->assert('gallery_slug', '^[^_][^/]+') // slug can't start with an underscore or contain a slash (we have to specify that manually since we override the default regex).
 ->convert('galleryInfo', $galleryProvider)
 ->bind('album-list')
@@ -216,7 +231,7 @@ $app->get('/{gallery_slug}/album/', function(Application $app, GalleryInfo $gall
 //
 // Controller: View an album in a gallery
 //
-$app->get('/{gallery_slug}/album/{album_path}/', function(Application $app, GalleryInfo $galleryInfo, $album_path) {
+function renderAlbum(Application $app, GalleryInfo $galleryInfo, $album_path) {
     try {
         /** @var \Drivegal\AlbumContents $albumContents */
         $albumContents = $app['gallery']->getAlbumContents($galleryInfo, $album_path);
@@ -236,8 +251,19 @@ $app->get('/{gallery_slug}/album/{album_path}/', function(Application $app, Gall
         'showLightboxPhoto' => '',
         'gallerySlug' => $galleryInfo->getSlug(),
     ));
-})
-->assert('gallery_slug', '^[^_][^/]+') // slug can't start with an underscore or contain a slash (we have to specify that manually since we override the default regex).
+}
+
+$app->get('/maingallery/album/{album_path}/',
+   function (Application $app,  $album_path) {
+     return renderAlbum($app, getDefaultGallery($app), $album_path);
+   })
+// slug can't start with an underscore or contain a slash (we have to specify that manually since we override the default regex).
+->assert('album_path', '.*') // album path *can* contain slashes.
+->value('album_path', '')
+->bind('defaultalbum');
+
+$app->get('/{gallery_slug}/album/{album_path}/', 'renderAlbum')
+// slug can't start with an underscore or contain a slash (we have to specify that manually since we override the default regex).
 ->assert('album_path', '.*') // album path *can* contain slashes.
 ->convert('galleryInfo', $galleryProvider)
 ->value('album_path', '')
@@ -325,12 +351,9 @@ function renderGalleryPage(Application $app, Request $request, GalleryInfo $gall
 }
 
 
-$app->get('/maingallery/{pagestr}', function(Application $app, Request $request, $pagestr) {
-        $galleryInfo = new GalleryInfo($app['drivegal.googleUserId'], 'maingallery', $app['drivegal.mainGalleryName']);
 
-        $galleryInfo->setCredentials($app['drivegal.googleCredentials']);
-        $galleryInfo->setIsActive(true);
-        return renderGalleryPage($app, $request, $galleryInfo, $pagestr);
+$app->get('/maingallery/{pagestr}', function(Application $app, Request $request, $pagestr) {
+        return renderGalleryPage($app, $request, getDefaultGallery($app), $pagestr);
 })
     ->assert('pagestr', '^page\d+')
     ->value('pagestr', 'page1')
