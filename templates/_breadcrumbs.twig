@@ -1,7 +1,7 @@
 {% if breadcrumbs %}
     <ol class="breadcrumb">
         {% for path,name in breadcrumbs %}
-            <li><a href="{{ app.request.baseurl }}/{{ path }}">{{ name }}</a></li>
+            <li><a href="{{ global.request.baseurl }}/{{ path }}">{{ name }}</a></li>
         {% endfor %}
         <li class="active">{{ albumTitle }}</li>
     </ol>
