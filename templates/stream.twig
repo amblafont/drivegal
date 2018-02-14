@@ -1,7 +1,7 @@
 {% extends "layout.twig" %}
 {% block containerClass %}container-fluid{% endblock %}
 
-{% block title %} Photo Stream | {{ galleryName }}{% endblock %}
+{% block title %} Photos | {{ galleryName }}{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" href="{{ asset ('js/lib/blueimp-gallery/css/blueimp-gallery.min.css') }}">
@@ -16,7 +16,7 @@
     <h1 style="float: left; margin-right: 20px;">{{ galleryName }}</h1>
 
     <ul class="nav nav-pills" style="float: left; margin-bottom: 10px;">
-        <li class="active"><a href="{{ url('defaultgallery' ) }}">Photo Stream</a></li>
+        <li class="active"><a href="{{ url('defaultgallery' ) }}">Toutes les photos</a></li>
         <li><a href="{{ url('default-album-list', { gallery_slug: gallerySlug }) }}">Albums</a></li>
     </ul>
 

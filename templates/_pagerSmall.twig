@@ -2,7 +2,7 @@
     <div class="input-group" style="width: 1px;">
         {% if paginator.prevUrl %}
             <span class="input-group-btn">
-                <a href="{{ paginator.prevUrl }}" class="btn btn-default" type="button">{{ (label_prev|default('&laquo; Prev'))|raw }}</a>
+                <a href="{{ paginator.prevUrl }}" class="btn btn-default" type="button">{{ (label_prev|default('&laquo; Précédent'))|raw }}</a>
             </span>
         {% endif %}
 
@@ -20,7 +20,7 @@
 
         {% if paginator.nextUrl %}
             <span class="input-group-btn">
-                <a href="{{ paginator.nextUrl }}" class="btn btn-default" type="button">{{ (label_next|default('Next &raquo;'))|raw }}</a>
+                <a href="{{ paginator.nextUrl }}" class="btn btn-default" type="button">{{ (label_next|default('Suivant &raquo;'))|raw }}</a>
             </span>
         {% endif %}
     </div>

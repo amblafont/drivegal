@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html class="no-skrollr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+
+    <link rel="stylesheet" href="{{ asset ('css/lib/bootstrap/css/bootstrap.min.css') }}">
+
+    <title>Album-photo souvenir de Nicolas</title>
+
+    <style type="text/css">
+        * {
+            padding:0;
+            margin:0;
+        }
+
+        html, body {
+            height:100%;
+        }
+
+        .skrollr-desktop body {
+            height:100% !important;
+        }
+
+        body {
+            font-family:sans-serif;
+            font-size: large;
+        }
+
+        p {
+            margin:1em 0;
+        }
+
+        .parallax-image-wrapper {
+            position:fixed;
+            left:0;
+            width:100%;
+            overflow:hidden;
+        }
+
+        .parallax-image-wrapper-50 {
+            height:50%;
+            top:-50%;
+        }
+
+        .parallax-image-wrapper-75 {
+            height:75%;
+            top:-75%;
+        }
+
+        .parallax-image-wrapper-100 {
+            height:100%;
+            top:-100%;
+        }
+
+        .parallax-image {
+            display:none;
+            position:absolute;
+            bottom:0;
+            left:0;
+            width:100%;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:cover;
+        }
+
+        .parallax-image-50 {
+            height:200%;
+            top:-50%;
+        }
+
+        .parallax-image-75 {
+            height:150%;
+            top:-50%;
+        }
+
+        .parallax-image-100 {
+            height:100%;
+            top:0;
+        }
+
+        .parallax-image.skrollable-between {
+            display:block;
+        }
+
+        .no-skrollr .parallax-image-wrapper {
+            display:none !important;
+        }
+
+        #skrollr-body {
+            height:100%;
+            overflow:visible;
+            position:relative;
+        }
+
+        .gap {
+            background:transparent center no-repeat;
+            background-size:cover;
+        }
+
+        .skrollr .gap {
+            background:transparent !important;
+        }
+
+        .gap-50 {
+            height:50%;
+        }
+
+        .gap-75 {
+            height:75%;
+        }
+
+        .gap-100 {
+            height:100%;
+        }
+
+        .header, .content {
+            background:#fff;
+            padding:1em;
+
+            -webkit-box-sizing:border-box;
+            -moz-box-sizing:border-box;
+            box-sizing:border-box;
+        }
+
+        .content-full {
+            min-height:100%;
+        }
+
+        #done {
+            height:100%;
+        }
+
+        /* Gallery styles */
+
+        #skrollr-body .navbar {
+            margin-bottom: 0px;
+            border: none;
+            padding: 10px 0px;
+        }
+
+        .btn-transparent {
+            color: #fff;
+            background: transparent;
+            border-color: #fff;
+        }
+        .btn-transparent:hover,
+        .btn-transparent:focus,
+        .btn-transparent:active,
+        .btn-transparent.active {
+            color: #fff;
+            background-color: #3071a9;
+            border-color: #285e8e;
+        }
+        .btn-transparent:active,
+        .btn-transparent.active {
+            background-image: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        We position the images fixed and therefore need to place them outside of #skrollr-body.
+        We will then use data-anchor-target to display the correct image matching the current section (.gap element).
+    -->
+
+    <div
+            class="parallax-image-wrapper parallax-image-wrapper-75"
+            data-anchor-target="#gallery + .gap"
+            data-bottom-top="transform:translate3d(0px, 225%, 0px)"
+            data-top-bottom="transform:translate3d(0px, 0%, 0px)">
+
+        <div
+                class="parallax-image parallax-image-75"
+                style="background-image:url({{ asset ('img/gallery.jpg') }})"
+                data-anchor-target="#gallery + .gap"
+                data-bottom-top="transform: translate3d(0px, -80%, 0px);"
+                data-top-bottom="transform: translate3d(0px, 80%, 0px);"
+                ></div>
+        <!--the +/-80% translation can be adjusted to control the speed difference of the image-->
+    </div>
+
+    <div
+            class="parallax-image-wrapper parallax-image-wrapper-50"
+            data-anchor-target="#photowall + .gap"
+            data-bottom-top="transform:translate3d(0px, 300%, 0px)"
+            data-top-bottom="transform:translate3d(0px, 0%, 0px)">
+
+        <div
+                class="parallax-image parallax-image-50"
+                style="background-image:url({{ asset ('img/photowall.jpg') }})"
+                data-anchor-target="#photowall + .gap"
+                data-bottom-top="transform: translate3d(0px, -60%, 0px);"
+                data-top-bottom="transform: translate3d(0px, 60%, 0px);"
+                ></div>
+    </div>
+
+    <div
+            class="parallax-image-wrapper parallax-image-wrapper-100"
+            data-anchor-target="#library + .gap"
+            data-bottom-top="transform:translate3d(0px, 200%, 0px)"
+            data-top-bottom="transform:translate3d(0px, 0%, 0px)">
+
+        <div
+                class="parallax-image parallax-image-100"
+                style="background-image:url({{ asset ('img/library.jpg') }})"
+                data-anchor-target="#library + .gap"
+                data-bottom-top="transform: translate3d(0px, -80%, 0px);"
+                data-top-bottom="transform: translate3d(0px, 80%, 0px);"
+                ></div>
+    </div>
+
+    <div
+            class="parallax-image-wrapper parallax-image-wrapper-100"
+            data-anchor-target="#antiquecamera + .gap"
+            data-bottom-top="transform:translate3d(0px, 200%, 0px)"
+            data-top-bottom="transform:translate3d(0px, 0%, 0px)">
+
+        <div
+                class="parallax-image parallax-image-100"
+                style="background-image:url({{ asset ('img/antiquecamera.jpg') }})"
+                data-anchor-target="#antiquecamera + .gap"
+                data-bottom-top="transform: translate3d(0px, -80%, 0px);"
+                data-top-bottom="transform: translate3d(0px, 80%, 0px);"
+                ></div>
+    </div>
+
+    <div id="skrollr-body">
+        <div id="gallery">
+            {#% include '_navbar.twig' %#}
+        </div>
+        <!--
+        <div class="gap gap-75" style="background-image:url({{ asset ('img/gallery.jpg') }});">
+            <div style="text-align: left; padding: 10px;">
+            </div>
+        </div>
+        -->
+
+        <div class="content content-full" id="photowall">
+            <div style="text-align: center;">
+                <div style="display: inline-block; text-align: left;">
+                    <!-- <img src="{{ asset ('img/drivegal-logo-128.png') }}" width="60" height="60" style="float: left;"> -->
+                    <div style="float: left; padding: 5px 10px; line-height: 1.1;">
+                        <div style="font-size: 30px; font-weight: bold;">
+                            Album-photo souvenir de Nicolas
+                        </div>
+                        <!-- <div style="font-size:20px;">en souvenir de Nicolas</div> -->
+                    </div>
+                </div>
+                <p class="lead">
+                Bienvenue sur l'album-photo en ligne des amis de Nicolas Tholance. 
+                Le <a href="{{ url('defaultgallery' ) }}">lien vers les photos</a> est protégé pour des raisons de confidentialité.
+                Pour obtenir le mot de passe, ou si vous avez des idées pour améliorer la présentation de l'album-photo, 
+                vous pouvez envoyer un mail à l'adresse <img src="{{ asset('img/email.png') }}" />.
+                </p>
+
+                <p>
+                Cet album est synchronisé avec le dossier des photos de Nicolas partagé sur Google Drive. Les descriptions des photos sont affichées lors du survol de la souris,
+                ou bien lorsque la photo est agrandie.
+                Les descriptions sont modifiables directement sur le dossier Google Drive partagé:
+                </p>
+                <img width="1080px" src="{{asset('img/description-drive.png') }}" />
+
+            </div>
+
+{#
+            <div id="first-text" class="container" style="margin-top: 0px;">
+                <h1>Setup is easy</h1>
+
+                <p>
+                    First, make sure you have some shared photos in Google Drive:
+                </p>
+
+                <ol style="padding-left: 40px;">
+                    <li>
+                        <a href="https://drive.google.com/" target="_blank">Create a Google Drive account</a>,
+                        if you don't have one already.
+                    </li>
+                    <li>
+                        <a href="https://support.google.com/drive/answer/2424368" target="_blank">Upload some photos</a> to a folder.
+                    </li>
+                    <li>
+                        <a href="https://support.google.com/drive/answer/2494822?hl=en&ref_topic=2525251" target="_blank">Share the folder</a>
+                        as "public on the web".
+                    </li>
+                </ol>
+
+                <p style="margin-top: 30px;">
+                    Then, activate your gallery:
+                </p>
+
+                <p>
+                    <a href="{{ path('setup') }}" class="btn btn-primary btn-lg">Create your gallery now</a>
+                </p>
+            </div>
+
+        </div>
+        <div class="gap gap-50" style="background-image:url({{ asset ('img/photowall.jpg') }});"></div>
+
+
+        <div class="content content-full" id="library">
+
+            <div class="container">
+                <h1>How does it work?</h1>
+
+                <p>
+                    It's simple, and mostly automatic.
+                </p>
+
+                <p>
+                    Your gallery is created automatically when you give us permission to connect to your Google Drive.
+                    There's no need to register or configure anything.
+                </p>
+
+                <p>
+                    You get an easy-to-remember web address (URL).
+                    It's named after your Google account by default,
+                    but you can change that.
+                    Your gallery is visible to anyone who has the URL.
+                </p>
+
+                <p>
+                    When someone views your gallery,
+                    we look up your publicly shared folders on Google Drive and show them as photo albums.
+                    (Only folders shared as "public on the web" are included.)
+                </p>
+
+                <p>
+                    Any photos or videos in your public folders are shown as thumbnails in your photo albums.
+                    Click or tap a thumbnail to view it full size.
+                    Click or tap the full size image to toggle display of captions and other metadata.
+                    Page through photos using arrow keys or by touch-swiping (on mobile devices).
+                </p>
+
+                <p>
+                    <a href="{{ path('gallery', { gallery_slug: 'demo'}) }}">View a sample gallery.</a>
+                </p>
+
+                <p style="margin-bottom: 50px;">
+                    <a href="{{ path('setup') }}" class="btn btn-lg btn-primary">Create your gallery now</a>
+                </p>
+
+            </div>
+
+        </div>
+        <div class="gap gap-50" style="background-image:url({{ asset ('img/library.jpg') }});"></div>
+
+
+        <div class="content content-full" id="antiquecamera">
+
+            <div class="container">
+                <h1>Why archive photos on Google Drive?</h1>
+
+                <p>
+                    Don't rely on a social network to archive your photos.
+                    You may find it's hard to get them back out.
+                </p>
+                <p>
+                    Any descriptions or tags you add to your photos will be in the social network's database,
+                    not in your image file.
+                    So they'll be lost when viewing your photos elsewhere.
+                </p>
+
+                <p>
+                    A smarter approach is to store the originals of your photos on a synchronizing file service like Google Drive or Dropbox.
+                    Add descriptions and other metadata directly in the file itself (using an EXIF editor).
+                    <i>Then</i> upload the file to social networks, if you like.
+                </p>
+
+                <p>
+                    This lets you keep control of your photos and videos,
+                    and makes it easy to back them up and access them wherever you choose without losing important metadata.
+                </p>
+                <p>
+                    Think of it as keeping the photographic "negatives" in a safe place and sharing prints,
+                    rather than giving away the negatives themselves.
+                </p>
+            </div>
+        </div>
+
+        <div class="gap gap-100" style="background-image:url({{ asset ('img/antiquecamera.jpg') }});"></div>
+
+        <div class="content">
+            <div class="container">
+                <h1>Who's behind this?</h1>
+
+                <p>
+                    I'm Jason Grimes,
+                    a web developer in Raleigh, North Carolina.
+                </p>
+                <p>
+                    I built this as a personal project,
+                    to scratch an itch and to experiment a little.
+                    It's released as open source (under the MIT license).
+                    Get the <a href="https://github.com/jasongrimes/drivegal">source code on Github</a> if you're interested.
+                </p>
+                <p>
+                    I can be reached at <a href="mailto:jason@grimesit.com">jason@grimesit.com</a>.
+                </p>
+            </div>
+        </div>
+
+    </div>
+                #}
+
+    <script src="{{ asset ('js/lib/jquery/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ asset ('css/lib/bootstrap/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset ('js/lib/skrollr.js') }}"></script>
+    <script type="text/javascript">
+        skrollr.init({
+            smoothScrolling: false,
+            mobileDeceleration: 0.004
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            // Make sure the info text starts below the fold.
+            // Cheating here because I gave up trying to make it work in CSS at all resolutions.
+            moveFirstTextBelowTheFold();
+            $(window).on('resize', function() { moveFirstTextBelowTheFold(); });
+
+        });
+
+        function moveFirstTextBelowTheFold() {
+            var $firstText = $('#first-text'),
+                    pixelBleed = $(window).height() - $firstText.position().top;
+            if (pixelBleed > 0) {
+                $firstText.css('margin-top', pixelBleed + 'px');
+            }
+        }
+    </script>
+
+    <!-- Piwik -->
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.grimesit.com/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', 2]);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+            g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <noscript><p><img src="http://piwik.grimesit.com/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+
+</body>
+
+</html>

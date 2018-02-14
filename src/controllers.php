@@ -76,13 +76,11 @@ $app->error(function (\Exception $e, $code) use ($app) {
 //
 // Controller: Home page.
 //
-/*
 $app->get('/', function () use ($app) {
-    return $app['twig']->render('index.twig', array());
+    return $app['twig']->render('accueil.twig', array());
 })
 ->bind('homepage')
 ;
-*/
 
 
 function renderTopLevelAlbum (Application $app, GalleryInfo $galleryInfo) {
