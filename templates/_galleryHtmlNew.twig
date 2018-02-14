@@ -18,7 +18,8 @@
     {% for file in files %}
         {# {% set caption = file.caption|replace("\\n", " ") %} #}
         {% set caption = file.caption %}
-        <div class="cropped-thumbnail {{ file.type }}" style="background-image: url('{{ file.thumbnailUrl }}');">
+        <div class="cropped-thumbnail {{ file.type }} {% if file.description != '' %}with-descr {% endif %}"
+        style="background-image: url('{{ file.thumbnailUrl }}');">
             <a
                     {% if file.type == "movie" %}
                         href="{{ file.playUrl }}"
