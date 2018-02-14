@@ -9,6 +9,7 @@ use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
+use Silex\Application\SecurityTrait;
 use Drivegal\Authenticator;
 use Drivegal\GalleryInfoMapper;
 use Drivegal\GalleryService;
@@ -63,8 +64,30 @@ $app['gallery'] =// $app->share
 $app->register(new DoctrineServiceProvider());
 $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider()); // Provides CSRF token generation for the OAuth service provider.
+
+
+
+
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+
+$encoder = new BCryptPasswordEncoder(13);
+$encoded_password = $encoder->encodePassword(GALLERY_PASSWORD, '');
+//$empty_user = null;
+// new Object();
+//$empty_user = $app['user'];
+//$encoded_password = $app->encodePassword($empty_user, GALLERY_PASSWORD);
+
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
+         'album' => array(
+            'pattern' => '^/maingallery',
+            'http' => true,
+            'users' => array(
+                // raw password is foo
+                GALLERY_USER_NAME => array('ROLE_FRIEND', 
+                 $encoded_password ),
+                ),
+            ),
         'default' => array(
             'pattern' => '^/',
             'anonymous' => true,
@@ -92,7 +115,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     ),
     'security.access_rules' => array(
         array('^/auth', 'ROLE_USER')
-    )
+    ),
 ));
 
 $app->register(new \Silex\Provider\RememberMeServiceProvider());
