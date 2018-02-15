@@ -239,3 +239,6 @@ ol.double-spaced li {
    position: absolute;
    opacity: 0.7;
 }
+.with-descr:hover .description {
+   opacity: 0;
+}
