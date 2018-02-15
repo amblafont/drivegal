@@ -20,6 +20,8 @@
         {% set caption = file.caption %}
         <div class="cropped-thumbnail {{ file.type }} {% if file.description != '' %}with-descr {% endif %}"
         style="background-image: url('{{ file.thumbnailUrl }}');">
+        {% if file.description != '' %}<span class="description">{{ file.description }}</span>{% endif %}"
+        
             <a
                     {% if file.type == "movie" %}
                         href="{{ file.playUrl }}"

@@ -218,6 +218,7 @@ ol.double-spaced li {
     vertical-align: middle;
     text-align: center;
 }
+/*
 .with-descr::before {
     content: "•••";
     background: black;
@@ -230,4 +231,11 @@ ol.double-spaced li {
 
 .with-descr:hover::before {
     opacity: 0;
+}
+*/
+.with-descr .description {
+   background: black;
+   color: white;
+   position: absolute;
+   opacity: 0.7;
 }
