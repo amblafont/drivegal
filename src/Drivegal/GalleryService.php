@@ -442,13 +442,17 @@ class GalleryService
         $driveService = $this->createDriveService($photoStream->getGalleryInfo());
         $albumIndex = $this->fetchAlbumIndex($driveService);
 
-        $cacheKey = $this->getGalleryStreamCacheKey($photoStream->getGalleryInfo());
-        if ($this->cache->contains($cacheKey)) {
-            $files = $this->cache->fetch($cacheKey);
-        } else {
-            $files = $this->fetchGalleryFiles($driveService, array(), $albumIndex);
-            $this->cache->save($cacheKey, $files, $this->cacheTtl);
+        if (CACHE_GALLERY) {
+            $cacheKey = $this->getGalleryStreamCacheKey($photoStream->getGalleryInfo());
+            if ($this->cache->contains($cacheKey)) {
+                $files = $this->cache->fetch($cacheKey);
+            } else {
+                $files = $this->fetchGalleryFiles($driveService, array(), $albumIndex);
+                $this->cache->save($cacheKey, $files, $this->cacheTtl);
+            }
         }
+        else
+            $files = $this->fetchGalleryFiles($driveService, array(), $albumIndex);
 
         // Order files in reverse chronological order.
         uasort($files, function(GalleryFile $a, GalleryFile $b) {
